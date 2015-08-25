@@ -67,6 +67,7 @@ var harp = {
             var artistName = this.userInput.replace(/ /g, "+");
             this.appId = artistName;
         } else {
+            console.log("here");
             this.userInputIsValid = false;
             this.appId = '';
         }
@@ -110,15 +111,24 @@ $(document).ready(function(){
     
     $(".wrapper").hide();
     
-    
-
     harp.$form.keyup(function(e){
+        
         e.preventDefault();
         harp.toggleLoading();
         harp.userInput = $(this).find('input').val();
         harp.validate();
+                
+        if (harp.userInput === "" || harp.userInput === " "){
+            $(".main").hide();
+            //console.log("empty");
+        } else{
+            $(".main").show();
+        }
 
         if( harp.userInputIsValid ) {
+            
+            //show name of track on top of main section
+            $(".title-track").html("<h2>"+harp.userInput+"</h2>").css("text-transform", "capitalize");
             
             $.ajax({
                 url: "https://itunes.apple.com/search?term=" + harp.appId,

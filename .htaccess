@@ -1,0 +1,5 @@
+AuthName "Restricted Area" 
+AuthType Basic 
+AuthUserFile /public_html/harp.xyz/beta/.htpasswd 
+AuthGroupFile /dev/null 
+require valid-user
