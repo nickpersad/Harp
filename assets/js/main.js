@@ -1,6 +1,20 @@
+
+//Add songs to Fav Section
 //toggle colors in star when user favs
 function toggleStar(star) {
     $(star).toggleClass("fa-star fa-star-o");
+    var $li = $(star).closest("li");
+    
+    //copy fav'd track to favorite section
+    //TO DO remove track from main content area???
+    $li.clone().appendTo("ul.placeholder");
+    
+    //change placeholder style to match main content area
+    $("ul.placeholder").css( "font-style", "normal" ).css( "color", "#000" );
+    
+    //hide placeholder text
+    $(".placeholder-text").html("<h2>Starred</h2>");
+    
 }
 
 //toggle play/pause of track

@@ -28,6 +28,13 @@ body {
     color: #4A4A4A;
 }
 
+h2 {
+    font-size:1.5em;
+    margin-bottom:10px;
+    font-weight: 100;
+    font-family: 'Proxima', sans-serif;
+}
+
 img {
     max-width: 100%;
     height: auto;
@@ -37,6 +44,13 @@ a {
     color: inherit;
     text-decoration: none;
 }
+
+li {
+    list-style: none;
+    margin: 0 auto;
+}
+
+
 
 ::-webkit-input-placeholder {
     font-size: .8em;
@@ -73,6 +87,10 @@ header {
     padding: 5px 0;
     color: #6fa1b8;
     background: #d0ecf8;
+    top:0;
+    position: fixed;
+    width: 100%;
+    z-index: 11;
 }
 
     header h1 {
@@ -88,7 +106,7 @@ header {
 
     header p {
         margin-top: -1.4em;
-        text-indent: -22px; /* indent slightly */
+        text-indent: -22px; /* indent slightly to the left */
         text-shadow: 0 1px 0px rgba(0, 0, 0, .15);
         font-size: .875em; /* 14/16 */
         color:#586875;
@@ -108,7 +126,7 @@ header {
 form {
     position: relative;
     max-width: 50em; /* 880/16 */
-    margin: 1em auto;
+    margin: 10em  auto 1em;
     padding: 0;
 }
     form p {
@@ -216,7 +234,7 @@ form {
         animation: pop .333s;
     }
     
-    .content .title {
+    .title {
         margin:0 auto;
         width: 300px;
         max-width: 300px;
@@ -226,14 +244,14 @@ form {
         display: table-cell;
     }
 
-    .content .title a{
+    .title a{
         text-decoration: none
     }
-    .content .title a:hover{
+    .title a:hover{
         color:#d0ecf8;
     }
 
-    .content .artist {
+    .artist {
         display: table-cell;
         margin:0 auto;
         width: 200px;
@@ -243,7 +261,7 @@ form {
         text-overflow: ellipsis;
     } 
     
-    .content .time {
+    .time {
         display: table-cell;
         margin:0 auto;
         width: 100px;
@@ -253,7 +271,7 @@ form {
         text-overflow: ellipsis;
     }
 
-    .content .controls {
+    .controls {
         display: table-cell;
         margin:0 auto;
         width: 40px;
@@ -272,15 +290,10 @@ form {
         color: yellow;
     }   
 
-    .content img {
+    .content img, .placeholder img {
         width:30px;
         height: 30px;
         vertical-align: middle ;
-    }
-    
-    .content li {
-        list-style: none;
-        margin: 5px auto;
     }
 
     @-webkit-keyframes pop {
