@@ -1,0 +1,326 @@
+@font-face {
+    font-family: "Proxima";
+    src: url(../font/Proxima%20Nova%20Alt%20Semibold.otf) format("x-font-otf");
+}
+
+*,
+*:before,
+*:after {
+    box-sizing: inherit;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+  box-sizing: border-box;
+  background: #fff;
+  text-align: center;
+}
+
+body {
+    font-size: 1em;
+    line-height: 1.5;
+    font-family: 'Proxima', sans-serif;
+    font-weight: 100;
+    width: 100%; /* 880/16 */
+    margin: 0 auto;
+    padding: 0;
+    color: #4A4A4A;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+::-webkit-input-placeholder {
+    font-size: .8em;
+    padding-top: .2em;
+    font-family: 'Proxima', sans-serif;
+    font-weight: 100;
+}
+
+:-moz-placeholder { /* Firefox 18- */
+    font-size: .8em;
+    padding-top: .2em;
+    font-family: 'Proxima', sans-serif;
+    font-weight: 100; 
+}
+
+::-moz-placeholder {  /* Firefox 19+ */
+    font-size: .8em;
+    padding-top: .2em;
+    font-family: 'Proxima', sans-serif;
+    font-weight: 100;  
+}
+
+:-ms-input-placeholder {  
+    font-size: .8em;
+    padding-top: .2em;
+    font-family: 'Proxima', sans-serif;
+    font-weight: 100;  
+}
+
+/*
+    Header Styles
+*/
+header {
+    padding: 5px 0;
+    color: #6fa1b8;
+    background: #d0ecf8;
+}
+
+    header h1 {
+        font-family: 'Lobster Two', serif;
+        font-size: 3em;
+        text-shadow: 0 4px 2px rgba(0, 0, 0, .1);
+        margin: 0;
+    }
+
+        header h1 a {
+            text-decoration: none;
+        }
+
+    header p {
+        margin-top: -1.4em;
+        text-indent: -22px; /* indent slightly */
+        text-shadow: 0 1px 0px rgba(0, 0, 0, .15);
+        font-size: .875em; /* 14/16 */
+        color:#586875;
+    }
+
+    @media screen and (max-width: 600px) {
+        header p {
+            text-indent: 0;
+            margin-top: .5em;
+        }
+    }
+
+/*
+    Form Input
+    Styles for the form input and button
+*/
+form {
+    position: relative;
+    max-width: 50em; /* 880/16 */
+    margin: 1em auto;
+    padding: 0;
+}
+    form p {
+        text-align: left;
+        color:#586875;
+    }
+    form input{
+        width: 100%;
+        display: block;
+        font-size: 1em;
+        padding: .625em .85em;
+        padding-right: 7em;
+        line-height: 1.5;
+        margin: 0;
+        border: 1px solid #6fa1b8;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, .1) inset,
+                    0 2px 4px rgba(0, 0, 0, .1);
+        border-radius: 3px;
+        background: rgba(0,0,0,0.02);
+    }
+
+        textarea:focus, input:focus{
+            outline: 0;
+        }
+
+
+/*
+    Content Styles
+    Main container for content, i.e. the icons, error messages, etc
+*/
+.wrapper {
+    max-width: 50em; /* 880/16 */
+    border: 1px solid #ccc;
+    text-align: left;
+    padding: 2em;
+    margin: 1em auto;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, .1);
+    border-radius: 3px;
+    position: relative;
+}
+
+.playlist .placeholder{
+    font-style: italic; 
+    color: #9B9B9B;
+}
+
+.content {
+    width: 100%;
+    margin: 0 auto;
+    position: relative;
+    word-wrap: break-word; /* for long urls */
+}
+
+    .content * { /* do a simple reset on elements in .content */
+        margin: 0;
+        padding: 0;
+    }
+
+    .content strong {
+        font-weight: bold;
+        display: block;
+    }
+
+    .content em {
+        font-style: normal;
+        background-color: lightyellow;
+    }
+
+    .content img[src*="icon-mask.png"] {
+        position: absolute;
+        left: 0;
+        top: 0;
+    }
+
+    .content--loading:before {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: #fff;
+        content: '';
+        opacity: .9;
+        z-index: 10;
+    }
+
+    .content--loading:after {
+        content: url('../img/loading.gif');
+        position: absolute;
+        left: 50%;
+        top: 3em;
+        margin-left: -16px;
+        margin-top: -16px;
+        z-index: 11;
+    }
+
+    .content--error {
+        color: #196E76;
+    }
+
+    .content--error-pop {
+        -webkit-animation: pop .333s;
+        -moz-animation: pop .333s;
+        -o-animation: pop .333s;
+        animation: pop .333s;
+    }
+    
+    .content .title {
+        margin:0 auto;
+        width: 300px;
+        max-width: 300px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: table-cell;
+    }
+
+    .content .title a{
+        text-decoration: none
+    }
+    .content .title a:hover{
+        color:#d0ecf8;
+    }
+
+    .content .artist {
+        display: table-cell;
+        margin:0 auto;
+        width: 200px;
+        max-width: 200px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    } 
+    
+    .content .time {
+        display: table-cell;
+        margin:0 auto;
+        width: 100px;
+        font-style: italic;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .content .controls {
+        display: table-cell;
+        margin:0 auto;
+        width: 40px;
+    }
+
+    .fa-play {
+        color:green;
+    }
+
+    .fa-star-o, .fa-star {
+        float: right;padding-top: 4px
+    }
+
+    .fa-star {
+        
+        color: yellow;
+    }   
+
+    .content img {
+        width:30px;
+        height: 30px;
+        vertical-align: middle ;
+    }
+    
+    .content li {
+        list-style: none;
+        margin: 5px auto;
+    }
+
+    @-webkit-keyframes pop {
+        0%   {-webkit-transform: scale(1);}
+        50%  {-webkit-transform: scale(1.075);}
+        100% {-webkit-transform: scale(1);}
+    }
+    @-moz-keyframes pop {
+        0%   {-webkit-transform: scale(1);}
+        50%  {-webkit-transform: scale(1.075);}
+        100% {-webkit-transform: scale(1);}
+    }
+    @-o-keyframes pop {
+        0%   {-webkit-transform: scale(1);}
+        50%  {-webkit-transform: scale(1.075);}
+        100% {-webkit-transform: scale(1);}
+    }
+    @keyframes pop {
+        0%   {-webkit-transform: scale(1);}
+        50%  {-webkit-transform: scale(1.075);}
+        100% {-webkit-transform: scale(1);}
+    }
+
+/*
+    Footer
+    Styles for the attribution footer
+*/
+footer {
+    bottom:0;
+    position: fixed;
+    padding: 5px 0;
+    background: #6fa1b8;
+    width: 100%;
+    z-index: 11;
+}
+
+    footer p {
+        font-size: .875em; /* 14/16 */
+        color: #d0ecf8;
+    }
+    footer a:hover {
+        color: #fff;
+    }
