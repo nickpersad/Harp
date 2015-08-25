@@ -1,6 +1,11 @@
-//colors in star when user favs
+//toggle colors in star when user favs
 function toggleStar(star) {
-    $(star).addClass("fa-star").removeClass("fa-star-o");
+    $(star).toggleClass("fa-star fa-star-o");
+}
+
+//toggle play/pause of track
+function toggleControls(play) {
+    $(play).toggleClass("fa-play fa-pause");
 }
 
 var harp = {
@@ -71,7 +76,7 @@ var harp = {
             trackDuration = mins + ":" + secs;
             
                 track += "<li><span class='title'><img src='"+trackLevel.artworkUrl30+"'> <a href='javascript:void(0)' onclick=''>"
-                         +trackLevel.trackName+"</a></span><span class='artist'>"+trackLevel.artistName+"</span><span class='time'>"+trackDuration+"</span><span class='controls'><i class='fa fa-play'></i><i class='fa fa-star-o'onclick='toggleStar(this)'></i></span></li>";
+                         +trackLevel.trackName+"</a></span><span class='artist'>"+trackLevel.artistName+"</span><span class='time'>"+trackDuration+"</span><span class='controls'><i class='fa fa-play' onclick='toggleControls(this)'></i><i class='fa fa-star-o' onclick='toggleStar(this)'></i></span></li>";
             
             harp.$content.html(this).append(track).removeClass('content--error');
         }

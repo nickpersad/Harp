@@ -259,6 +259,10 @@ form {
         width: 40px;
     }
 
+    .fa-play {
+        color:green;
+    }
+
     .fa-star-o, .fa-star {
         float: right;padding-top: 4px
     }
