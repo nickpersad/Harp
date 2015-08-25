@@ -60,7 +60,7 @@ var harp = {
                 trackDuration = trackLevel.trackTimeMillis;
             
             //don't show non-songs from response
-            if(response.results.kind !== "song") return;
+            if(trackLevel.kind !== "song") return;
             
             //convert duration to digital clock
             var mins = Math.floor((trackDuration % 3600000) / 60000),

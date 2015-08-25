@@ -259,7 +259,14 @@ form {
         width: 40px;
     }
 
-    .fa-star-o {float: right;padding-top: 4px}
+    .fa-star-o, .fa-star {
+        float: right;padding-top: 4px
+    }
+
+    .fa-star {
+        
+        color: yellow;
+    }   
 
     .content img {
         width:30px;
