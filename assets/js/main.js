@@ -4,9 +4,13 @@ function toggleStar(star) {
     $(star).toggleClass("fa-star fa-star-o");
     var $li = $(star).closest("li");
     
+    if ($li.hasClass("favd")) {
+        $li.hide().addClass("delete");
+    }
+    
     //copy fav'd track to favorite section
     //remove track from main content area
-    $li.clone().appendTo("ul.placeholder");
+    $li.clone().appendTo("ul.placeholder").addClass("favd");
     $li.remove();
     
     //change placeholder style to match main content area
@@ -15,17 +19,18 @@ function toggleStar(star) {
     //hide placeholder text
     $(".placeholder-text").html("<h2>Starred</h2>");
     
+    
 }
 
 //toggle play/pause of track
 function toggleControls(play) {
-        
-    //stop playing another track if user clicks a new track
-    if($(".fa-pause")){
+    //if you want to stop this track from playing
+    if ($(play).hasClass("fa-pause")){
+        $(play).addClass("fa-play").removeClass("fa-pause");
+    } else { //if you want to stop another traack from playing and play this track
         $(".fa-pause").addClass("fa-play").removeClass("fa-pause");
+        $(play).toggleClass("fa-play fa-pause");
     }
-    
-    $(play).toggleClass("fa-play fa-pause");
 }
 
 var harp = {
