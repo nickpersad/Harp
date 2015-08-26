@@ -24,13 +24,38 @@ function toggleStar(star) {
 
 //toggle play/pause of track
 function toggleControls(play) {
+    
+    var currTrack = play.id,
+        play_pause=true;
+    if (currTrack.indexOf("apppppppp") >= 0) {
+        currTrack = currTrack.replace(/\apppppppp/g, "'");
+    }
+    
+    
     //if you want to stop this track from playing
     if ($(play).hasClass("fa-pause")){
         $(play).addClass("fa-play").removeClass("fa-pause");
+        play_pause=false;
     } else { //if you want to stop another traack from playing and play this track
         $(".fa-pause").addClass("fa-play").removeClass("fa-pause");
         $(play).toggleClass("fa-play fa-pause");
     }
+    
+    nowPlaying (currTrack,play_pause);
+}
+
+//show what is playing
+//Also stop showing when paused
+function nowPlaying (currTrack,play_pause) {
+    //if playing: play_pause=true
+    //if not: play_pause=false
+    if (play_pause){
+        play_pause = 'playing';
+    } else {
+        play_pause = 'paused';
+    }
+    
+    console.log(currTrack+" is "+play_pause);
 }
 
 var harp = {
@@ -100,9 +125,15 @@ var harp = {
             
             //human readable time
             trackDuration = mins + ":" + secs;
+            var currTrack = trackLevel.trackName;
+            
+            if(currTrack!==undefined){
+                var currTrackId = currTrack.replace(/\'/g, 'apppppppp');
+            }
+                
             
                 track += "<li><span class='title'><img src='"+trackLevel.artworkUrl30+"'> <a href='javascript:void(0)' onclick=''>"
-                         +trackLevel.trackName+"</a></span><span class='artist'>"+trackLevel.artistName+"</span><span class='time'>"+trackDuration+"</span><span class='controls'><i class='fa fa-play' onclick='toggleControls(this)'></i><i class='fa fa-star-o' onclick='toggleStar(this)'></i></span></li>";
+                         +currTrack+"</a></span><span class='artist'>"+trackLevel.artistName+"</span><span class='time'>"+trackDuration+"</span><span class='controls'><i id='"+currTrackId+"' class='fa fa-play' onclick='toggleControls(this)'></i><i class='fa fa-star-o' onclick='toggleStar(this)'></i></span></li>";
             
             harp.$content.html(this).append(track).removeClass('content--error');
         }
