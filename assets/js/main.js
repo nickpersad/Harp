@@ -23,7 +23,7 @@ function toggleStar(star) {
 }
 
 //toggle play/pause of track
-function toggleControls(play) {
+function toggleControls(play,time) {
     
     var currTrack = play.id,
         play_pause=true;
@@ -41,11 +41,11 @@ function toggleControls(play) {
         $(play).toggleClass("fa-play fa-pause");
     }
     
-    nowPlaying (currTrack,play_pause);
+    nowPlaying (currTrack,play_pause,time);
 }
 
 //show what is playing/paused
-function nowPlaying (currTrack,play_pause) {
+function nowPlaying (currTrack,play_pause,time) {
     //if playing: play_pause=true
     //if not: play_pause=false
     if (play_pause){
@@ -55,6 +55,14 @@ function nowPlaying (currTrack,play_pause) {
     }
     $("footer p").html('&copy;Harp | crafted by <a href="http://persad.me/" title="Nick Persad">nick persad</a>');
     $("footer p").append(" | <span class='now_playing box_round'>"+currTrack+" is "+ play_pause+"</span>");
+    
+    //pause after time elapses (ms)
+    function pauseTrack(){
+        $("footer p").html('&copy;Harp | crafted by <a href="http://persad.me/" title="Nick Persad">nick persad</a>');
+        $("footer p").append(" | <span class='now_playing box_round'>"+currTrack+" is paused</span>");
+    }
+    setTimeout(pauseTrack, time);
+    console.log(time);
     
 }
 
@@ -124,8 +132,8 @@ var harp = {
             }
             
             //human readable time
-            trackDuration = mins + ":" + secs;
-            var currTrack = trackLevel.trackName;
+            var trackDurationClock = mins + ":" + secs,
+                currTrack = trackLevel.trackName;
             
             if(currTrack!==undefined){
                 var currTrackId = currTrack.replace(/\'/g, 'apppppppp');
@@ -133,7 +141,7 @@ var harp = {
                 
             
                 track += "<li><span class='title'><img src='"+trackLevel.artworkUrl30+"'> <a href='javascript:void(0)' onclick=''>"
-                         +currTrack+"</a></span><span class='artist'>"+trackLevel.artistName+"</span><span class='time'>"+trackDuration+"</span><span class='controls'><i id='"+currTrackId+"' class='fa fa-play' onclick='toggleControls(this)'></i><i class='fa fa-star-o' onclick='toggleStar(this)'></i></span></li>";
+                         +currTrack+"</a></span><span class='artist'>"+trackLevel.artistName+"</span><span class='time'>"+trackDurationClock+"</span><span class='controls'><i id='"+currTrackId+"' class='fa fa-play' onclick='toggleControls(this,"+trackDuration+")'></i><i class='fa fa-star-o' onclick='toggleStar(this)'></i></span></li>";
             
             harp.$content.html(this).append(track).removeClass('content--error');
         }
