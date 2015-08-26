@@ -44,8 +44,7 @@ function toggleControls(play) {
     nowPlaying (currTrack,play_pause);
 }
 
-//show what is playing
-//Also stop showing when paused
+//show what is playing/paused
 function nowPlaying (currTrack,play_pause) {
     //if playing: play_pause=true
     //if not: play_pause=false
@@ -54,8 +53,9 @@ function nowPlaying (currTrack,play_pause) {
     } else {
         play_pause = 'paused';
     }
+    $("footer p").html('&copy;Harp | crafted by <a href="http://persad.me/" title="Nick Persad">nick persad</a>');
+    $("footer p").append(" | <span class='now_playing box_round'>"+currTrack+" is "+ play_pause+"</span>");
     
-    console.log(currTrack+" is "+play_pause);
 }
 
 var harp = {

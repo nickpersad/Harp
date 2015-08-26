@@ -337,3 +337,16 @@ footer {
     footer a:hover {
         color: #fff;
     }
+
+footer .now_playing {
+    color: #fff;
+    font-style: italic; 
+    padding:2px 7px;
+}
+
+footer .box_round {
+    background:#27647F;
+     -moz-border-radius: 12px; /* FF1+ */
+  -webkit-border-radius: 12px; /* Saf3-4 */
+          border-radius: 12px; /* Opera 10.5, IE 9, Saf5, Chrome */
+}
