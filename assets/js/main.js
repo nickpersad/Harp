@@ -17,13 +17,13 @@ function toggleStar(star) {
     $("ul.placeholder").css( "font-style", "normal" ).css( "color", "#000" );
     
     //hide placeholder text
-    $(".placeholder-text").html("<h2>Starred</h2>");
+    $(".placeholder-text").html("<h2>Starred Playlist</h2>");
     
     
 }
 
 //toggle play/pause of track
-function toggleControls(play,time) {
+function toggleControls(play,time,stop) {
     
     var currTrack = play.id,
         play_pause=true;
@@ -40,18 +40,22 @@ function toggleControls(play,time) {
         $(".fa-pause").addClass("fa-play").removeClass("fa-pause");
         $(play).toggleClass("fa-play fa-pause");
     }
+    if (stop) return;
     
-    nowPlaying (currTrack,play_pause,time);
+    nowPlaying (currTrack,play_pause,time,play);
 }
 
 //show what is playing/paused
-function nowPlaying (currTrack,play_pause,time) {
+function nowPlaying (currTrack,play_pause,time,play) {
+   
     //if playing: play_pause=true
     //if not: play_pause=false
     if (play_pause){
         play_pause = 'playing';
+        playAudio(true);
     } else {
         play_pause = 'paused';
+        playAudio(false);
     }
     $("footer p").html('&copy;Harp | crafted by <a href="http://persad.me/" title="Nick Persad">nick persad</a>');
     $("footer p").append(" | <span class='now_playing box_round'>"+currTrack+" is "+ play_pause+"</span>");
@@ -60,10 +64,41 @@ function nowPlaying (currTrack,play_pause,time) {
     function pauseTrack(){
         $("footer p").html('&copy;Harp | crafted by <a href="http://persad.me/" title="Nick Persad">nick persad</a>');
         $("footer p").append(" | <span class='now_playing box_round'>"+currTrack+" is paused</span>");
+        
+        //toggle icon
+        toggleControls(play,time,true);
+        playAudio(false);
     }
     setTimeout(pauseTrack, time);
+    
     console.log(time);
     
+}
+
+function countdownTimer(time){
+    if(time>0){
+        
+        setTimeout(countdown(time), 1000);
+    }   
+}
+
+
+function countdown(time){
+    time=time-1;
+    console.log(time);
+    countdownTimer(time);
+}
+
+//audio control
+// variable to store HTML5 audio element
+var music = document.getElementById('music');
+ 
+function playAudio(onoff) {
+	if (onoff) {
+		music.play();
+	} else { 
+		music.pause();
+	}
 }
 
 var harp = {

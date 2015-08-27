@@ -31,13 +31,19 @@
         <form class="submit">
             <p>What would you like to listen to?</p>
             <input type="text" placeholder="Enter an artist, song, or both...">
-<!--            <button type="submit">Search</button>-->
+            <!--<button type="submit">Search</button>-->
         </form>
+        
+        <!--http://api.soundcloud.com/tracks/feel-good-drag?client_id=9f6727ade08abf47a14de3088db459ad</audio>-->
+        <audio id="music">
+            <source src='http://api.soundcloud.com/tracks/3494599/stream?client_id=9f6727ade08abf47a14de3088db459ad' type='audio/wav' />
+        </audio>
         
         <div class="wrapper">
             <div class="playlist">
                 <ul class="placeholder"><li class="placeholder-text">Create a custom playlist by adding your favorite songs.</li></ul>
             </div>
+            
         </div>
         
         <div class="main wrapper">
