@@ -1,3 +1,8 @@
+//soundcloud api client ID
+var sc_client_ID="?client_id=9f6727ade08abf47a14de3088db459ad";
+// variable to store HTML5 audio element
+var music = document.getElementById('music');
+
 //Add songs to Fav Section
 //toggle colors in star when user favs
 function toggleStar(star) {
@@ -27,18 +32,24 @@ function toggleControls(play,time,stop) {
     
     var currTrack = play.id,
         play_pause=true;
+    
+    
     if (currTrack.indexOf("apppppppp") >= 0) {
         currTrack = currTrack.replace(/\apppppppp/g, "'");
     }
-    
     
     //if you want to stop this track from playing
     if ($(play).hasClass("fa-pause")){
         $(play).addClass("fa-play").removeClass("fa-pause");
         play_pause=false;
+        
     } else { //if you want to stop another traack from playing and play this track
+        get_soundcloud(currTrack);
+        
         $(".fa-pause").addClass("fa-play").removeClass("fa-pause");
         $(play).toggleClass("fa-play fa-pause");
+        
+        
     }
     if (stop) return;
     
@@ -71,28 +82,48 @@ function nowPlaying (currTrack,play_pause,time,play) {
     }
     setTimeout(pauseTrack, time);
     
-    console.log(time);
+}
+
+function get_soundcloud(currTrack){
+    //track name to send to soundcloud
+    var soundcloud = currTrack.replace(/\./g, '').replace(/\s+/g, '-').replace(/\(|\)/g, '').replace(/ /g, "").toLowerCase(),
+        soudcloud_api = "http://api.soundcloud.com/tracks/"+soundcloud+sc_client_ID;
+    
+    console.log(soudcloud_api);
+    $.ajax({
+        url: soudcloud_api,
+        dataType: 'JSONP'
+    })
+    .done(function(song) {
+
+        // Check to see if request is valid & contains the info we want
+        // If it does, render it. Otherwise throw an error
+        if(song !== null && song !== undefined){
+            console.log(song);
+            get_stream(song);
+        } else {
+            console.log('no soundcloud file');
+        }
+    });
+    
     
 }
 
-function countdownTimer(time){
-    if(time>0){
-        
-        setTimeout(countdown(time), 1000);
-    }   
-}
-
-
-function countdown(time){
-    time=time-1;
-    console.log(time);
-    countdownTimer(time);
+function get_stream(json){
+    
+    //parse soundcloud json to get mp3
+    var stream_url = json.stream_url;
+    stream_url = stream_url+sc_client_ID;
+    
+    if(stream_url!==null && stream_url!==undefined){
+        console.log(stream_url);
+        $(music).html("<source src='"+stream_url+"' type='audio/wav' />");
+    }
+    
+    
 }
 
 //audio control
-// variable to store HTML5 audio element
-var music = document.getElementById('music');
- 
 function playAudio(onoff) {
 	if (onoff) {
 		music.play();
@@ -178,8 +209,10 @@ var harp = {
                 track += "<li><span class='title'><img src='"+trackLevel.artworkUrl30+"'> <a href='javascript:void(0)' onclick=''>"
                          +currTrack+"</a></span><span class='artist'>"+trackLevel.artistName+"</span><span class='time'>"+trackDurationClock+"</span><span class='controls'><i id='"+currTrackId+"' class='fa fa-play' onclick='toggleControls(this,"+trackDuration+")'></i><i class='fa fa-star-o' onclick='toggleStar(this)'></i></span></li>";
             
+            
             harp.$content.html(this).append(track).removeClass('content--error');
         }
+        
         $(".wrapper").show();
         harp.toggleLoading();
     }
