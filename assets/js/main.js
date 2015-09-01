@@ -43,6 +43,8 @@ function toggleControls(play,time,stop) {
         $(play).addClass("fa-play").removeClass("fa-pause");
         play_pause=false;
         
+        get_soundcloud(currTrack);
+        
     } else { //if you want to stop another traack from playing and play this track
         get_soundcloud(currTrack);
         
@@ -58,6 +60,12 @@ function toggleControls(play,time,stop) {
 
 //show what is playing/paused
 function nowPlaying (currTrack,play_pause,time,play) {
+    
+    
+    console.log("currTrack "+currTrack);
+    console.log("play_pause "+play_pause);
+    console.log("time "+time);
+    console.log("play "+play);
    
     //if playing: play_pause=true
     //if not: play_pause=false
@@ -68,8 +76,34 @@ function nowPlaying (currTrack,play_pause,time,play) {
         play_pause = 'paused';
         playAudio(false);
     }
-    $("footer p").html('&copy;Harp | crafted by <a href="http://persad.me/" title="Nick Persad">nick persad</a>');
-    $("footer p").append(" | <span class='now_playing box_round'>"+currTrack+" is "+ play_pause+"</span>");
+    
+    countDown(time);
+    function countDown(time){
+        time=time-1000;
+        
+        //convert duration to digital clock
+            var countdownCmins = Math.floor((time % 3600000) / 60000),
+                countdownCsecs = Math.ceil(((time % 360000) % 60000) / 1000);
+            //add '0' in front of number if secs is < 10
+            if (countdownCsecs<10) {
+                countdownCsecs = '0'+countdownCsecs;
+            }
+            
+            //human readable time
+            var countdownClock = countdownCmins + ":" + countdownCsecs;
+        
+        $("footer p").html('&copy;Harp | crafted by <a href="http://persad.me/" title="Nick Persad">nick persad</a>');
+        $("footer p").append(" | <span class='now_playing box_round'>"+currTrack+" is "+ play_pause+" "+countdownClock+"</span>");
+        
+        if (time>0){
+            setTimeout(function () {
+        
+                countDown(time);
+
+            }, 1000);
+        }
+    }
+    
     
     //pause after time elapses (ms)
     function pauseTrack(){
@@ -87,11 +121,10 @@ function nowPlaying (currTrack,play_pause,time,play) {
 function get_soundcloud(currTrack){
     //track name to send to soundcloud
     var soundcloud = currTrack.replace(/\./g, '').replace(/\s+/g, '-').replace(/\(|\)/g, '').replace(/ /g, "").toLowerCase(),
-        soudcloud_api = "http://api.soundcloud.com/tracks/"+soundcloud+sc_client_ID;
+        soundcloud_api = "http://api.soundcloud.com/tracks/"+soundcloud+sc_client_ID;
     
-    console.log(soudcloud_api);
     $.ajax({
-        url: soudcloud_api,
+        url: soundcloud_api,
         dataType: 'JSONP'
     })
     .done(function(song) {
@@ -106,7 +139,49 @@ function get_soundcloud(currTrack){
         }
     });
     
+}
+
+//youtube
+//https://www.googleapis.com/youtube/v3/search?part=snippet&channelId=UCv7IjJclSgpfGUHnG171ovw&order=date&key=AIzaSyBpu8hgnXbkqFVWrAvwRUEz7T13ii3I7WM
+
+//wiki
+//https://en.wikipedia.org/w/api.php?action=query&titles=anberlin&prop=revisions&rvprop=content&format=json
+function wiki(name){
     
+    name = name.replace(/\./g, '').replace(/\s+/g, '_').replace(/\(|\)/g, '').replace(/ /g, "_").toLowerCase();
+    
+    $.ajax({
+	    type: "GET",
+	    url: "http://en.wikipedia.org/w/api.php?action=parse&format=json&prop=text&section=0&page="+name+"&callback=?",
+	    contentType: "application/json; charset=utf-8",
+	    async: false,
+	    dataType: "json",
+	    success: function (data, textStatus, jqXHR) {
+	    
+		var markup = data.parse.text["*"];
+		var i = $('<div></div>').html(markup);
+		
+		// remove links as they will not work
+		i.find('a').each(function() { $(this).replaceWith($(this).html()); });
+		
+		// remove any references
+		i.find('sup').remove();
+		
+		// remove cite error
+		i.find('.mw-ext-cite-error').remove();
+        
+        var text = $(i).find('p');
+
+        if(text.length <= 1 || text === undefined) return;
+           
+		$('#article').html(text);
+			
+		
+	    },
+	    error: function (errorMessage) {
+	    }
+	});
+
 }
 
 function get_stream(json){
@@ -229,6 +304,10 @@ $(document).ready(function(){
         harp.toggleLoading();
         harp.userInput = $(this).find('input').val();
         harp.validate();
+        
+        
+        //call wiki method
+        wiki(harp.userInput);
                 
         if (harp.userInput === "" || harp.userInput === " "){
             $(".main").hide();

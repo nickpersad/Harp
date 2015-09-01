@@ -91,6 +91,7 @@ header {
     position: fixed;
     width: 100%;
     z-index: 11;
+    border-bottom: thin solid #6fa1b8;
 }
 
     header h1 {
