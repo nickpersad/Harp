@@ -1,3 +1,15 @@
+/*
+
+    Vision Forward Marketing LLC (2015)
+
+    <p>Description: Search and play music anywhere. Main JS file.</p>
+
+    @author Nick Persad
+    @version 0.1
+
+*/
+
+
 //soundcloud api client ID
 var sc_client_ID="?client_id=9f6727ade08abf47a14de3088db459ad";
 // variable to store HTML5 audio element
@@ -53,7 +65,7 @@ function toggleControls(play,time,stop) {
         
         
     }
-    if (stop) return;
+    //if (stop) return;
     
     nowPlaying (currTrack,play_pause,time,play);
 }
@@ -61,12 +73,6 @@ function toggleControls(play,time,stop) {
 //show what is playing/paused
 function nowPlaying (currTrack,play_pause,time,play) {
     
-    
-    console.log("currTrack "+currTrack);
-    console.log("play_pause "+play_pause);
-    console.log("time "+time);
-    console.log("play "+play);
-   
     //if playing: play_pause=true
     //if not: play_pause=false
     if (play_pause){
@@ -84,6 +90,12 @@ function nowPlaying (currTrack,play_pause,time,play) {
         //convert duration to digital clock
             var countdownCmins = Math.floor((time % 3600000) / 60000),
                 countdownCsecs = Math.ceil(((time % 360000) % 60000) / 1000);
+            
+            //changes clock from showing xx:60
+            if (countdownCsecs===60) {
+                countdownCmins += 1;
+                countdownCsecs = 00;
+            }
             //add '0' in front of number if secs is < 10
             if (countdownCsecs<10) {
                 countdownCsecs = '0'+countdownCsecs;
@@ -92,8 +104,7 @@ function nowPlaying (currTrack,play_pause,time,play) {
             //human readable time
             var countdownClock = countdownCmins + ":" + countdownCsecs;
         
-        $("footer p").html('&copy;Harp | crafted by <a href="http://persad.me/" title="Nick Persad">nick persad</a>');
-        $("footer p").append(" | <span class='now_playing box_round'>"+currTrack+" is "+ play_pause+" "+countdownClock+"</span>");
+        $("footer p").html('&copy;Harp | crafted by <a href="http://persad.me/" title="Nick Persad">nick persad</a> | <span class="now_playing box_round">'+currTrack+' is '+ play_pause+' '+countdownClock+'</span>');
         
         if (time>0){
             setTimeout(function () {
@@ -107,8 +118,7 @@ function nowPlaying (currTrack,play_pause,time,play) {
     
     //pause after time elapses (ms)
     function pauseTrack(){
-        $("footer p").html('&copy;Harp | crafted by <a href="http://persad.me/" title="Nick Persad">nick persad</a>');
-        $("footer p").append(" | <span class='now_playing box_round'>"+currTrack+" is paused</span>");
+        $("footer p").html('&copy;Harp | crafted by <a href="http://persad.me/" title="Nick Persad">nick persad</a> | <span class="now_playing box_round">'+currTrack+' is paused</span>');
         
         //toggle icon
         toggleControls(play,time,true);
@@ -298,6 +308,8 @@ $(document).ready(function(){
     
     $(".wrapper").hide();
     
+    $("#version").html("0.1");
+    
     harp.$form.keyup(function(e){
         
         e.preventDefault();
@@ -353,3 +365,14 @@ $(document).ready(function(){
     });
         
 });
+
+//Login Form
+function check(form) { /*function to check userid & password*/
+    /*the following code checkes whether the entered userid and password are matching*/
+    if(form.userid.value == "admin" && form.pswrd.value == "persad") {
+        window.open('beta/index.html')/*opens the target page while Id & password matches*/
+    }
+    else {
+        alert("Error Password or Username")/*displays error message*/
+    }
+}

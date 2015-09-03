@@ -35,6 +35,14 @@ h2 {
     font-family: 'Proxima', sans-serif;
 }
 
+h3 {
+    font-size:1em;
+    margin:5px auto;
+    font-weight: 100;
+    font-family: 'Proxima', sans-serif;
+    color: #d0ecf8;
+}
+
 img {
     max-width: 100%;
     height: auto;
@@ -132,7 +140,7 @@ form {
 }
     form p {
         text-align: left;
-        color:#586875;
+        color: #d0ecf8;
     }
     form input{
         width: 100%;
@@ -152,6 +160,32 @@ form {
         textarea:focus, input:focus{
             outline: 0;
         }
+    
+    .coming-soon{
+        margin-top:5em;
+    }
+
+    form.login{
+        margin: 1em  auto 1em;
+    }
+
+    #login{
+        width:20em;
+        margin: 0 auto;
+    }
+
+    form input.lbtn{
+        margin-top:10px;
+        width: 25%;
+        float:left;
+    }
+
+    form input.rbtn{
+        margin-top:10px;
+        width: 25%;
+        float:right;
+    }
+    
 
 
 /*
@@ -350,4 +384,8 @@ footer .box_round {
      -moz-border-radius: 12px; /* FF1+ */
   -webkit-border-radius: 12px; /* Saf3-4 */
           border-radius: 12px; /* Opera 10.5, IE 9, Saf5, Chrome */
+}
+
+footer .fa-twitter:hover{
+    color:#fff;
 }

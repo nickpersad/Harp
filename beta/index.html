@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en-US">
+<head>
+    
+    <!--
+
+        Vision Forward Marketing LLC (2015)
+     
+        <p>Description: Search and play music anywhere.</p>
+     
+        @author Nick Persad
+        @version 0.1
+
+     -->
+    
+    <meta charset="utf-8">
+    <title>Harp | just music.&#8482;</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css?family=Lobster+Two" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="assets/css/styles.css?v=2"> <!--Remember to change version. TODO: make dynamic.-->
+</head>
+<body>
+
+    <header>
+        <h1>Harp</h1>
+        <p>just music.&#8482;</p>
+    </header>
+
+    <main>
+        <form class="submit">
+            <p>What would you like to listen to?</p>
+            <input type="text" placeholder="Enter an artist, song, or both...">
+            <!--<button type="submit">Search</button>-->
+        </form>
+        
+        <!--audio controlled through JS-->
+        <audio id="music"></audio>
+    
+        
+        <div class="wrapper">
+            <div class="playlist">
+                <ul class="placeholder"><li class="placeholder-text">Create a custom playlist by adding your favorite songs.</li></ul>
+            </div>
+            
+        </div>
+        
+        <div class="main wrapper">
+            <h2 class="title-track"></h2>
+            <ul class="content"></ul>
+        </div>
+        
+        <!--wiki article-->
+        <div class="wrapper">
+            <div id="article"></div>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy;Harp | crafted by <a href="http://persad.me/" title="Nick Persad">nick persad</a> <a href="http://twitter.com/nick_persad" title="Nick Persad's Twitter"><i class='fa fa-twitter'></i></a></p>
+    </footer>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="assets/js/main.js?v=1"></script> <!--Remember to change version. TODO: make dynamic.-->
+</body>
+</html>

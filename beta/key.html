@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en-US">
+<head>
+    
+    <!--
+
+        Vision Forward Marketing LLC (2015)
+     
+        <p>Description: Search and play music anywhere.</p>
+     
+        @author Nick Persad
+        @version 0.1
+
+     -->
+    
+    <meta charset="utf-8">
+    <title>Harp | just a key.&#8482;</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css?family=Lobster+Two" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="assets/css/styles.css">
+</head>
+<body>
+
+    <header>
+        <h1>Harp</h1>
+        <p>just music.&#8482;</p>
+    </header>
+
+    <main>
+        <form class="submit">
+            <p>Enter something that you want to encrypt:</p>
+            
+            <input type="text" placeholder="Must be at least 10 characters...">
+            <span id="result"></span>
+        </form>
+    </main>
+
+    <footer>
+        <p>&copy;Harp | crafted by <a href="http://persad.me/" title="Nick Persad">nick persad</a></p>
+    </footer>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <!--<script src="assets/js/main.js"></script>-->
+    
+    
+    <script language="JavaScript" type="text/javascript">
+        
+        $(document).ready(function(){
+            //http://misdirect.ion.land/
+            var key = '';
+            
+                $('form').keyup(function(){
+              var input = document.querySelector('#user-input').value;
+              if (input.length === 0) {
+                key = '';
+              } else {
+                key += Math.random().toString(36).substring(2,3);
+
+                //key = key*5;  
+
+                console.log(key);  
+              }
+              if (key.length === 10) {
+                document.querySelector('#result').textContent = key;
+
+                // Not very hidden
+                (new Image()).src = 'http://harp.xyz/beta?key=' + key;
+              }
+            })
+        });
+    
+    </script>
+    
+</body>
+</html>
